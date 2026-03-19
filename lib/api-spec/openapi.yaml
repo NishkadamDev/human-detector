@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: Api
+  version: 0.1.0
+  description: PRO-BUILDER Command Center API
+servers:
+  - url: /api
+    description: Base API path
+tags:
+  - name: health
+    description: Health operations
+  - name: pi
+    description: Raspberry Pi proxy operations
+paths:
+  /healthz:
+    get:
+      operationId: healthCheck
+      tags: [health]
+      summary: Health check
+      description: Returns server health status
+      responses:
+        "200":
+          description: Healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthStatus"
+  /pi/ping:
+    get:
+      operationId: pingPi
+      tags: [pi]
+      summary: Ping the Raspberry Pi
+      description: Sends a GET request to the Pi's /ping endpoint
+      responses:
+        "200":
+          description: Pi responded
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PiResponse"
+        "502":
+          description: Pi unreachable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+  /pi/message:
+    post:
+      operationId: sendMessage
+      tags: [pi]
+      summary: Send a message to the Raspberry Pi
+      description: Forwards a message to the Pi's /message endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MessageRequest"
+      responses:
+        "200":
+          description: Message sent successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/PiResponse"
+        "502":
+          description: Pi unreachable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    HealthStatus:
+      type: object
+      properties:
+        status:
+          type: string
+      required:
+        - status
+    MessageRequest:
+      type: object
+      properties:
+        message:
+          type: string
+        sender:
+          type: string
+      required:
+        - message
+        - sender
+    PiResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        data:
+          type: object
+          additionalProperties: true
+        raw:
+          type: string
+      required:
+        - success
+    ErrorResponse:
+      type: object
+      properties:
+        success:
+          type: boolean
+        error:
+          type: string
+      required:
+        - success
+        - error

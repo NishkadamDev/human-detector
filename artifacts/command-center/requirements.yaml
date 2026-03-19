@@ -1,0 +1,13 @@
+packages:
+  "framer-motion": "For terminal-style animations, entry effects, and log additions"
+  "date-fns": "For elegant timestamp formatting in the response log"
+  "lucide-react": "For high-tech terminal icons"
+  "clsx": "Utility for constructing className strings conditionally"
+  "tailwind-merge": "Utility to cleanly merge tailwind classes"
+
+images: []
+
+notes:
+  - "The backend API exposes /api/pi/ping and /api/pi/message as proxies to the Raspberry Pi at 192.168.86.39:5000."
+  - "The generated React Query hooks from @workspace/api-client-react are being used via underlying fetch functions (pingPi, sendMessage) to allow manual trigger and custom log accumulation."
+  - "All CSS variables are updated to create a highly stylized dark terminal 'hacker' aesthetic."
