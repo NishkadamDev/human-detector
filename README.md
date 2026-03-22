@@ -17,7 +17,7 @@ Field tested and verified: it caught **Laksh** trying to sneak in at **3:42 PM**
 | Layer | Tool |
 |---|---|
 | **Hardware** | Raspberry Pi 5 + Camera Module |
-| **AI / Detection** | Claude (Anthropic API) |
+| **AI / Detection** | Claude (Anthropic API), Gemini (Google) |
 | **Dashboard & Backend** | Replit |
 | **Language** | Python |
 
